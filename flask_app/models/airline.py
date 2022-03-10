@@ -13,6 +13,7 @@ class Airline:
         self.planes = data['planes']
         self.createdAt = data['createdAt']
         self.updatedAt = data['updatedAt']
+        self.flights = []
 
 
     @classmethod
@@ -51,4 +52,21 @@ class Airline:
     def allFlights(cls, data):
         # left join statement will go here
         # get 1 airline and all its flights
-        pass
+        query = 'SELECT * FROM airline LEFT JOIN flight ON airline.id = flight.airline_id WHERE id = %(id)s;'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        print("getting model allFlight results: ", results)
+        # flights = []
+        for row in results:
+            flightData = {
+                'id': row['flight.id'],
+                'number': row['number'],
+                'departing': row['departing'],
+                'arriving': row['arriving'],
+                'createdAt': row['flight.createdAt'],
+                'updatedAt': row['flight.updatedAt'],
+                'airline_id': row['airline_id'],
+            }
+            print("each row of flightData from Model: ", row)
+            Airline.flights.append(flightData)
+            print("printing the list form models: ", Airline.flights)
+        return Airline.flights
