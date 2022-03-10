@@ -41,7 +41,7 @@ class Booking:
 
     @classmethod
     def update(cls, data):
-        query = 'UPDATE booking SET firstName=%(firstName)s, lastName=%(lastName)s, passengers=%(passengers)s, adultPassengers=%(adultPassengers)s, flightDate=%(flightDate)s, bagCheck=%(bagCheck)s WHERE id = %(id);'
+        query = 'UPDATE booking SET firstName=%(firstName)s, lastName=%(lastName)s, passengers=%(passengers)s, adultPassengers=%(adultPassengers)s, flightDate=%(flightDate)s, bagCheck=%(bagCheck)s WHERE id = %(id)s;'
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
