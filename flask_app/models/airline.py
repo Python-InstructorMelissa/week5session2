@@ -52,10 +52,10 @@ class Airline:
     def allFlights(cls, data):
         # left join statement will go here
         # get 1 airline and all its flights
-        query = 'SELECT * FROM airline LEFT JOIN flight ON airline.id = flight.airline_id WHERE id = %(id)s;'
+        query = 'SELECT * FROM airline LEFT JOIN flight ON airline.id = flight.airline_id WHERE airline.id = %(id)s;'
         results = connectToMySQL(cls.db).query_db(query, data)
         print("getting model allFlight results: ", results)
-        # flights = []
+        airline = cls(results[0]) # Forgot to add this in class
         for row in results:
             flightData = {
                 'id': row['flight.id'],
@@ -67,6 +67,7 @@ class Airline:
                 'airline_id': row['airline_id'],
             }
             print("each row of flightData from Model: ", row)
-            Airline.flights.append(flightData)
-            print("printing the list form models: ", Airline.flights)
-        return Airline.flights
+            # Airline.flights.append(flightData) # Because I forgot line 58 this line needed adjusting
+            airline.flights.append(Flight(flightData))
+            print("printing the list form models: ", airline)
+        return airline

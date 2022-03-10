@@ -31,7 +31,9 @@ def viewAirline(airline_id):
     data = {
         'id': airline_id
     }
-    return render_template('viewAirline.html', airline=Airline.getOne(data))
+    flights = Airline.allFlights(data)
+    print("all flights: ", flights)
+    return render_template('viewAirline.html', airline=Airline.getOne(data), flights=Airline.allFlights(data))
 
 @app.route('/airlines/<int:airline_id>/edit/')
 def editAirline(airline_id):
