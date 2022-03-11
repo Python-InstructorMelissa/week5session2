@@ -58,3 +58,21 @@ body main {
   width: 85%;
   margin: 1em;
 }
+body main .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  align-items: flex-start;
+}
+body main .row .column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+}
+body main .row .flights {
+  align-items: flex-start;
+}

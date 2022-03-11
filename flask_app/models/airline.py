@@ -69,5 +69,5 @@ class Airline:
             print("each row of flightData from Model: ", row)
             # Airline.flights.append(flightData) # Because I forgot line 58 this line needed adjusting
             airline.flights.append(Flight(flightData))
-            print("printing the list form models: ", airline)
+        print("printing the list form models: ", airline.flights)
         return airline
