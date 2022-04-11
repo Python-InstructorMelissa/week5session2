@@ -9,6 +9,7 @@ class Subject:
         self.description = data['description']
         self.createdAt = data['createdAt']
         self.updatedAt = data['updatedAt']
+        self.cohorts = []
 
     @classmethod
     def getAll(cls):
@@ -44,5 +45,17 @@ class Subject:
 
     @classmethod
     def getCohorts(cls, data):
-        # Here is where we will build a join statement to show all the cohorts for 1 subject
-        pass
+        query = 'SELECT * FROM subject left join cohort on subject.id = cohort.subject_id where subject.id = %(id)s;'
+        results = connectToMySQL(cls.db).query_db(query, data)
+        subject = cls(results[0])
+        for row in results:
+            cohortData = {
+                'id': row['cohort.id'],
+                'name': row['cohort.name'],
+                'instructor': row['instructor'],
+                'cohortLength': row['cohortLength'],
+                'createdAt': row['cohort.createdAt'],
+                'updatedAt': row['cohort.updatedAt'],
+                'subject_id': row['subject_id']
+            }
+            subject.cohorts.append(cohort.Cohort(cohortData))
